@@ -4,20 +4,18 @@
 
     <resultMap type="com.middle.wcs.order.entity.po.OrderInfo" id="OrderInfoMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="insertTime" column="insert_time" jdbcType="TIMESTAMP"/>
         <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
-        <result property="batchId" column="batch_id" jdbcType="INTEGER"/>
-        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="orderName" column="order_name" jdbcType="VARCHAR"/>
+        <result property="batchNo" column="batch_no" jdbcType="VARCHAR"/>
         <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-        <result property="isPrint1" column="is_print1" jdbcType="VARCHAR"/>
-        <result property="isPrint2" column="is_print2" jdbcType="VARCHAR"/>
-        <result property="isPrint3" column="is_print3" jdbcType="VARCHAR"/>
-        <result property="qrCode" column="qr_code" jdbcType="VARCHAR"/>
-        <result property="inPut" column="in_put" jdbcType="VARCHAR"/>
-        <result property="orderStatus" column="order_status" jdbcType="VARCHAR"/>
-        <result property="invalidFlag" column="invalid_flag" jdbcType="VARCHAR"/>
-        <result property="spec" column="spec" jdbcType="VARCHAR"/>
-        <result property="isManual" column="is_manual" jdbcType="VARCHAR"/>
+        <result property="processName" column="process_name" jdbcType="VARCHAR"/>
+        <result property="orderQuantity" column="order_quantity" jdbcType="INTEGER"/>
+        <result property="destination" column="destination" jdbcType="VARCHAR"/>
+        <result property="analysisTime" column="analysis_time" jdbcType="INTEGER"/>
+        <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
+        <result property="loadedQuantity" column="loaded_quantity" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="invalidFlag" column="invalid_flag" jdbcType="INTEGER"/>
         <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
         <result property="createrCode" column="creater_code" jdbcType="VARCHAR"/>
         <result property="executorName" column="executor_name" jdbcType="VARCHAR"/>
@@ -31,19 +29,17 @@
         SELECT
             id,
             order_id,
-            batch_id,
-            product_code,
+            order_name,
+            batch_no,
             product_name,
-            is_print1,
-            is_print2,
-            is_print3,
-            qr_code,
-            in_put,
-            insert_time,
+            process_name,
+            order_quantity,
+            destination,
+            analysis_time,
             order_status,
+            loaded_quantity,
+            create_time,
             invalid_flag,
-            spec,
-            is_manual,
             creater_name,
             creater_code,
             executor_name,
@@ -54,16 +50,21 @@
         FROM
             dbo.order_info
         WHERE
-            invalid_flag = '0' -- 仅查询未标记为无效的数据
-          AND order_status = '3' -- 查询特定状态的数据
+            invalid_flag = 0
           <if test="orderId != null and orderId != ''">
-            AND order_id = #{orderId}
+            AND order_id LIKE CONCAT('%', #{orderId}, '%')
+          </if>
+          <if test="orderName != null and orderName != ''">
+            AND order_name LIKE CONCAT('%', #{orderName}, '%')
+          </if>
+          <if test="orderStatus != null">
+            AND order_status = #{orderStatus}
           </if>
           <if test="executorName != null and executorName != ''">
             AND executor_name LIKE CONCAT('%', #{executorName}, '%')
           </if>
         ORDER BY
-            insert_time DESC; -- 按插入时间倒序排序
+            create_time DESC
     </select>
 
 </mapper>

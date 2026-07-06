@@ -46,7 +46,15 @@ public interface OrderInfoService {
 
     OrderInfo getNowRunningOrder();
 
-    OrderInfo getOrderInfoByBatchId(Long batchId);
+    OrderInfo getOrderInfoByBatchNo(String batchNo);
+
+    /**
+     * 执行订单：设置目的地、解析时间，清零已上货数量，状态改为执行中，记录执行人
+     *
+     * @param orderInfo 订单信息（含id、destination、analysisTime、executorName、executorCode）
+     * @return 更新结果
+     */
+    Integer executeOrder(OrderInfo orderInfo);
 
     List<OrderInfo> selectByList(OrderInfo dto);
 }

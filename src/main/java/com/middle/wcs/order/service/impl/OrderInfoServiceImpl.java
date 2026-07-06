@@ -43,10 +43,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public List<OrderInfo> queryOrderList() {
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setInvalidFlag("0");
+        orderInfo.setInvalidFlag(0);
         QueryWrapper<OrderInfo> wrapper= new QueryWrapper<>(orderInfo);
-        wrapper.ne("order_status", 3);
-        wrapper.orderByDesc("order_status").orderByAsc("insert_time");
+        wrapper.ne("order_status", 2);
+        wrapper.orderByDesc("order_status").orderByAsc("create_time");
         return orderInfoMapper.selectList(wrapper);
     }
 
@@ -62,7 +62,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public OrderInfo getNowRunningOrder() {
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setInvalidFlag("0");
+        orderInfo.setInvalidFlag(0);
         QueryWrapper<OrderInfo> wrapper= new QueryWrapper<>(orderInfo);
         wrapper.eq("order_status", 1);
         List<OrderInfo> orderInfos = orderInfoMapper.selectList(wrapper);
@@ -73,16 +73,24 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     @Override
-    public OrderInfo getOrderInfoByBatchId(Long batchId) {
+    public OrderInfo getOrderInfoByBatchNo(String batchNo) {
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setInvalidFlag("0");
+        orderInfo.setInvalidFlag(0);
         QueryWrapper<OrderInfo> wrapper= new QueryWrapper<>(orderInfo);
-        wrapper.eq("batch_id", batchId);
+        wrapper.eq("batch_no", batchNo);
         List<OrderInfo> orderInfos = orderInfoMapper.selectList(wrapper);
         if (orderInfos != null && orderInfos.size() > 0) {
             return orderInfos.get(0);
         }
         return null;
+    }
+
+    @Override
+    public Integer executeOrder(OrderInfo orderInfo) {
+        // 执行订单：清零已上货数量，状态改为执行中
+        orderInfo.setLoadedQuantity(0);
+        orderInfo.setOrderStatus(1);
+        return orderInfoMapper.updateById(orderInfo);
     }
 
     @Override

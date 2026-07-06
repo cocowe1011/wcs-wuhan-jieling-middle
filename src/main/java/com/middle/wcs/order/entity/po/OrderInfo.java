@@ -26,26 +26,19 @@ public class OrderInfo {
     private Long id;
 
     /**
-    * 插入时间
-    */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date insertTime;
-
-    /**
-    * 生产总订单号
+    * 订单编号
     */
     private String orderId;
 
     /**
-    * 生产单批次订单ID
+    * 订单名称
     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long batchId;
+    private String orderName;
 
     /**
-    * 产品编号
+    * 批号
     */
-    private String productCode;
+    private String batchNo;
 
     /**
     * 产品名称
@@ -53,77 +46,79 @@ public class OrderInfo {
     private String productName;
 
     /**
-    * 指定预热房（A-G）
+    * 工艺名称
     */
-    private String isPrint1;
+    private String processName;
 
     /**
-    * 指定灭菌柜（A-G）
+    * 订单数量
     */
-    private String isPrint2;
+    private Integer orderQuantity;
 
     /**
-    * 指定输出，0：一楼 1、解析库 2、立体库
+    * 目的地（选中订单执行时设定，编号19~33）
     */
-    private String isPrint3;
+    private String destination;
 
     /**
-    * 单批次16个托盘码逗号间隔
+    * 解析时间（单位：小时，选中订单执行时设定）
     */
-    private String qrCode;
+    private Integer analysisTime;
 
     /**
-    * 进货口指定，1、一楼外部进货。2、2楼进货。3、三楼进货。4、不解析出口
+    * 订单状态：0=未开始、1=执行中、2=已完成
     */
-    private String inPut;
+    private Integer orderStatus;
 
     /**
-    * 订单状态，0待执行1执行中2已暂停3已完成
+    * 已上货数量（每次设置执行订单时清零）
     */
-    private String orderStatus;
+    private Integer loadedQuantity;
 
     /**
-     * 作废标识，0未作废，1作废
+    * 订单创建时间（数据库默认当前时间）
+    */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+
+    /**
+     * 作废标志：0=未作废、1=已作废
      */
-    private String invalidFlag;
+    private Integer invalidFlag;
 
     /**
-     * 规格
-     */
-    private String spec;
-
-    /**
-     * 是否手动添加的订单,1：手动 其他：MSE
-     */
-    private String isManual;
-
-    /**
-     * 添加用户姓名
+     * 添加订单的用户姓名
      */
     private String createrName;
+
     /**
-     * 添加订单的用户code
+     * 添加订单的用户code编号
      */
     private String createrCode;
+
     /**
-     * 订单执行人
+     * 订单执行人姓名
      */
     private String executorName;
+
     /**
-     * 订单执行人code
+     * 订单执行人code编号
      */
     private String executorCode;
+
     /**
      * 订单完成人姓名
      */
     private String finisherName;
+
     /**
-     * 订单完成人code
+     * 订单完成人code编号
      */
     private String finisherCode;
 
     /**
-     * 订单完成时间
+     * 完成时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date finishTime;
 }

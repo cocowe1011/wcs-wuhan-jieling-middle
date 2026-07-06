@@ -25,9 +25,19 @@ public class OrderInfoPageDTO {
     private Integer pageSize;
 
     /**
-     * 订单号（模糊）
+     * 订单编号（模糊）
      */
     private String orderId;
+
+    /**
+     * 订单名称（模糊）
+     */
+    private String orderName;
+
+    /**
+     * 订单状态
+     */
+    private Integer orderStatus;
 
     /**
      * 执行人姓名（模糊）
