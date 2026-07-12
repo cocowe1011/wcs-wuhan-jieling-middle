@@ -11,7 +11,7 @@
         <result property="processName" column="process_name" jdbcType="VARCHAR"/>
         <result property="orderQuantity" column="order_quantity" jdbcType="INTEGER"/>
         <result property="destination" column="destination" jdbcType="VARCHAR"/>
-        <result property="analysisTime" column="analysis_time" jdbcType="INTEGER"/>
+        <result property="analysisTime" column="analysis_time" jdbcType="DECIMAL"/>
         <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
         <result property="loadedQuantity" column="loaded_quantity" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

@@ -61,9 +61,9 @@ public class OrderInfo {
     private String destination;
 
     /**
-    * 解析时间（单位：小时，选中订单执行时设定）
+    * 解析时间（单位：小时，支持一位小数，选中订单执行时设定）
     */
-    private Integer analysisTime;
+    private Double analysisTime;
 
     /**
     * 订单状态：0=未开始、1=执行中、2=已完成

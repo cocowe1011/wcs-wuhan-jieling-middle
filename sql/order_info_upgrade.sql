@@ -7,7 +7,7 @@ CREATE TABLE dbo.order_info (
     process_name    NVARCHAR(200)    NULL,
     order_quantity  INT              NULL,
     destination     NVARCHAR(50)     NULL,
-    analysis_time   INT              NULL,
+    analysis_time   DECIMAL(10,1)    NULL,
     order_status    TINYINT          NULL DEFAULT 0,
     loaded_quantity INT              NULL DEFAULT 0,
     create_time     DATETIME         NULL DEFAULT GETDATE(),
@@ -30,7 +30,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'产品名称',
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工艺名称',         @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'process_name';
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'订单数量',         @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'order_quantity';
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'目的地（编号19~33）', @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'destination';
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'解析时间（单位：小时）', @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'analysis_time';
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'解析时间（单位：小时，支持一位小数）', @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'analysis_time';
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'订单状态：0=未开始、1=执行中、2=已完成', @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'order_status';
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'已上货数量（每次执行订单时清零）', @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'loaded_quantity';
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'订单创建时间',     @level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'order_info', @level2type=N'COLUMN', @level2name=N'create_time';
